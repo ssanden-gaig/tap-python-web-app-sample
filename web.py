@@ -10,6 +10,6 @@ def hello_world():
 def hello_user(username):
     # say hello to that user
     return 'Hello %s' % escape(username)
-
+## This is the app startup
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=8080, debug=True)
