@@ -17,33 +17,21 @@ jobs:
           uses: mathieudutour/github-tag-action@v6.1
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}  
-        # - name: Create Release
-        #   id: create_release
-        #   uses: actions/create-release@v1
-        #   env:
-        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        #   with:
-        #     tag: ${{ steps.tag_version.outputs.new_tag }}
-        #     name: Release ${{ steps.tag_version.outputs.new_tag }}
-        #     body: |
-        #       Access Control File update
-        #     draft: false
-        #     prerelease: false
-        # - name: Create Release
-        #   uses: aaiezza/create-release@master
-        #   id: create_release
-        #   with:
-        #       release_branch: PROD
-        #       tag: ${{ steps.tag_version.outputs.new_tag }}
-        #   env:
-        #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        - name: Create Branch
-          id: create_branch
-          uses: lablnet/create-branch-from-tag@v1
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
           with:
-            tag_name: ${{ steps.tag_version.outputs.new_tag }}
-            branch_name: PROD
-            owner: ${{ github.repository_owner }} # https://docs.github.com/en/actions/learn-github-actions/contexts#example-contents-of-the-github-context
-            repo: ${{ github.event.repository.name }} # https://www.reddit.com/r/github/comments/tjkj6f/get_repo_name_on_github_actions_without_owner/
+            tag: ${{ steps.tag_version.outputs.new_tag }}
+            name: Release ${{ steps.tag_version.outputs.new_tag }}
+            body: |
+              Access Control File update
+            draft: false
+            prerelease: false
+        - name: Create the PROD branch 
+          uses: peterjgrainger/action-create-branch@v2.2.0
+          env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            branch: 'PROD'
