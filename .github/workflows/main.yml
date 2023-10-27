@@ -29,11 +29,18 @@ jobs:
         #       Access Control File update
         #     draft: false
         #     prerelease: false
-        - name: Create Release
-          uses: aaiezza/create-release@master
-          id: create_release
-          with:
-              release_branch: PROD
-              tag: ${{ steps.tag_version.outputs.new_tag }}
+        # - name: Create Release
+        #   uses: aaiezza/create-release@master
+        #   id: create_release
+        #   with:
+        #       release_branch: PROD
+        #       tag: ${{ steps.tag_version.outputs.new_tag }}
+        #   env:
+        #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Create the PROD Branch
+          uses: satya-500/create-branch@v1.0
           env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+           branch: PROD
+           tag: ${{ steps.tag_version.outputs.new_tag }}
