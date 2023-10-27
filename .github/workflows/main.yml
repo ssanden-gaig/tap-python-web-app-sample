@@ -30,7 +30,7 @@ jobs:
               Access Control File update : ${{ github.event.head_commit.message }}
             draft: false
             prerelease: false
-        - name: Create the PROD branch 
+        - name: Create the PROD branch for release
           uses: peterjgrainger/action-create-branch@v2.2.0
           env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
